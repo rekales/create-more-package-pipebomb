@@ -1,3 +1,5 @@
 {
-  "item.cmpackagepipebombs.example_item": "Example Item"
+  "item.cmpackagepipebomb.pipebomb": "Pipebomb",
+  "item.cmpackagepipebomb.pipebomb_rigged": "Rigged Pipebomb",
+  "item.cmpackagepipebomb.tnt_rigged": "Rigged TNT"
 }
