@@ -16,7 +16,7 @@ public class PipebombItem extends Item{
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-        player.getCooldowns().addCooldown(this, 20);
+        player.getCooldowns().addCooldown(this, 30);
         ItemStack itemstack = player.getItemInHand(hand);
         level.playSound(
                 null,
