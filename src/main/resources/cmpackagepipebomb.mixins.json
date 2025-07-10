@@ -1,0 +1,10 @@
+{
+  "required": true,
+  "priority": 1000,
+  "package": "com.krei.cmpackagepipebomb.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "EjectorBlockEntityMixin"
+  ],
+  "minVersion": "0.8.5"
+}
