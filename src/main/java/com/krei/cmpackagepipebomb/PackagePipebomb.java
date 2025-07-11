@@ -5,10 +5,8 @@ import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.entry.EntityEntry;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import net.minecraft.client.renderer.entity.EntityRenderers;
-import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.item.Item;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import org.slf4j.Logger;
 
@@ -32,14 +30,14 @@ public class PackagePipebomb {
             .item("pipebomb", PipebombItem::new)
             .register();
 
-    public static final ItemEntry<Item> RIGGED_PIPEBOMB_ITEM = REGISTRATE
-            .item("pipebomb_rigged", Item::new)
+    public static final ItemEntry<RiggedPipebomb> RIGGED_PIPEBOMB_ITEM = REGISTRATE
+            .item("pipebomb_rigged", RiggedPipebomb::new)
             .properties(p -> p.stacksTo(1))
             .properties(p -> p.component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true))
             .register();
 
-    public static final ItemEntry<Item> RIGGED_TNT_ITEM = REGISTRATE
-            .item("tnt_rigged", Item::new)
+    public static final ItemEntry<RiggedTNT> RIGGED_TNT_ITEM = REGISTRATE
+            .item("tnt_rigged", RiggedTNT::new)
             .properties(p -> p.stacksTo(1))
             .properties(p -> p.component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true))
             .register();

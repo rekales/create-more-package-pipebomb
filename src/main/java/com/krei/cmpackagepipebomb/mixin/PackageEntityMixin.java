@@ -1,11 +1,9 @@
 package com.krei.cmpackagepipebomb.mixin;
 
-import com.krei.cmpackagepipebomb.PackagePipebomb;
-import com.krei.cmpackagepipebomb.PrimedPipebomb;
+import com.krei.cmpackagepipebomb.PackageSpawn;
 import com.simibubi.create.content.logistics.box.PackageEntity;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.items.ItemStackHandler;
@@ -36,23 +34,12 @@ public class PackageEntityMixin {
                 if (itemstack.isEmpty())
                     continue;
 
-                if (PackagePipebomb.RIGGED_TNT_ITEM.isIn(itemstack)) {
+                if (itemstack.getItem() instanceof PackageSpawn packageSpawn) {
                     itemstack.shrink(1);
                     Vec3 pos = ((PackageEntity) (Object) this).position();
-                    PrimedTnt primedtnt = new PrimedTnt(level, pos.x(), pos.y(), pos.z(), null);
-                    primedtnt.setFuse(20);
-                    level.addFreshEntity(primedtnt);
-                }
-
-                if (PackagePipebomb.RIGGED_PIPEBOMB_ITEM.isIn(itemstack)) {
-                    itemstack.shrink(1);
-                    Vec3 pos = ((PackageEntity) (Object) this).position();
-                    PrimedTnt primedPipebomb = new PrimedPipebomb(level, pos.x(), pos.y(), pos.z(), null);
-                    primedPipebomb.setFuse(20);
-                    level.addFreshEntity(primedPipebomb);
+                    packageSpawn.spawnEntity(level, pos.x(), pos.y(), pos.z());
                 }
             }
         }
-
     }
 }

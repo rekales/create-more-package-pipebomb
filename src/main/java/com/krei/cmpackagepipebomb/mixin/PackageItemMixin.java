@@ -1,21 +1,25 @@
 package com.krei.cmpackagepipebomb.mixin;
 
-import com.krei.cmpackagepipebomb.PackagePipebomb;
-import com.krei.cmpackagepipebomb.PrimedPipebomb;
-import com.simibubi.create.content.logistics.box.PackageEntity;
+import com.krei.cmpackagepipebomb.PackageSpawn;
 import com.simibubi.create.content.logistics.box.PackageItem;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
+
+import java.util.List;
 
 @Mixin(value = PackageItem.class, remap = false)
 public abstract class PackageItemMixin {
@@ -29,25 +33,42 @@ public abstract class PackageItemMixin {
         if (contents == null)
             return;
 
+        Vec3 lookVec = playerIn.getLookAngle();
+        Vec3 pos = playerIn.getEyePosition().add(lookVec.scale(1));
+
         if (!worldIn.isClientSide()) {
             for (int i = 0; i < contents.getSlots(); i++) {
                 ItemStack itemstack = contents.getStackInSlot(i);
                 if (itemstack.isEmpty())
                     continue;
 
-                if (PackagePipebomb.RIGGED_TNT_ITEM.isIn(itemstack)) {
+                if (itemstack.getItem() instanceof PackageSpawn packageSpawn) {
                     itemstack.shrink(1);
-                    PrimedTnt primedtnt = new PrimedTnt(worldIn, playerIn.getX(), playerIn.getY(), playerIn.getZ(), null);
-                    primedtnt.setFuse(20);
-                    worldIn.addFreshEntity(primedtnt);
+                    packageSpawn.spawnEntity(worldIn, pos.x(), pos.y(), pos.z());
                 }
+            }
+        }
+    }
 
-                if (PackagePipebomb.RIGGED_PIPEBOMB_ITEM.isIn(itemstack)) {
-                    itemstack.shrink(1);
-                    PrimedTnt primedPipebomb = new PrimedPipebomb(worldIn, playerIn.getX(), playerIn.getY(), playerIn.getZ(), null);
-                    primedPipebomb.setFuse(20);
-                    worldIn.addFreshEntity(primedPipebomb);
-                }
+    @Inject(
+            method = "appendHoverText",
+            at = @At(
+                    value = "INVOKE_ASSIGN",
+                    target = "Lcom/simibubi/create/content/logistics/box/PackageItem;getContents(Lnet/minecraft/world/item/ItemStack;)Lnet/neoforged/neoforge/items/ItemStackHandler;"
+            ),
+            locals = LocalCapture.CAPTURE_FAILSOFT
+    )
+    private void appendHoverText(ItemStack stack, Item.TooltipContext tooltipContext, List<Component> tooltipComponents, TooltipFlag tooltipFlag, CallbackInfo ci, int visibleNames, int skippedNames, ItemStackHandler contents) {
+        if (contents == null)
+            return;
+
+        for (int i = 0; i < contents.getSlots(); i++) {
+            ItemStack itemstack = contents.getStackInSlot(i);
+            if (itemstack.isEmpty())
+                continue;
+
+            if (itemstack.getItem() instanceof PackageSpawn) {
+                contents.setStackInSlot(i, ItemStack.EMPTY);
             }
         }
     }
