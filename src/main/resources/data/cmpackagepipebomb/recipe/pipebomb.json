@@ -6,12 +6,13 @@
       "item": "minecraft:gunpowder"
     },
     "S": {
-      "tag": "c:plates/iron"
+      "item": "create:andesite_alloy"
     }
   },
   "pattern": [
-    "SP",
-    "PS"
+    " SP",
+    "SPS",
+    "PS "
   ],
   "result": {
     "count": 1,

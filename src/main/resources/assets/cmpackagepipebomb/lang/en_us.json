@@ -1,5 +1,11 @@
 {
   "item.cmpackagepipebomb.pipebomb": "Pipebomb",
   "item.cmpackagepipebomb.pipebomb_rigged": "Rigged Pipebomb",
-  "item.cmpackagepipebomb.tnt_rigged": "Rigged TNT"
+  "item.cmpackagepipebomb.tnt_rigged": "Rigged TNT",
+  "item.cmpackagepipebomb.pipebomb_rigged.tooltip.summary": "_Handle with care._",
+  "item.cmpackagepipebomb.pipebomb_rigged.tooltip.condition1": "When Opened From a Package",
+  "item.cmpackagepipebomb.pipebomb_rigged.tooltip.behaviour1": "Spawns a short fuse Pipebomb",
+  "item.cmpackagepipebomb.tnt_rigged.tooltip.summary": "_Handle with care._",
+  "item.cmpackagepipebomb.tnt_rigged.tooltip.condition1": "When Opened From a Package",
+  "item.cmpackagepipebomb.tnt_rigged.tooltip.behaviour1": "Spawns a short fuse TNT"
 }

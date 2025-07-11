@@ -15,4 +15,6 @@ public class RiggedPipebomb extends Item implements PackageSpawn {
         primedPipebomb.setFuse(20);
         return primedPipebomb;
     }
+
+    // NOTE: maybe use a more generic PackageSpawnItem that uses a supplier?
 }

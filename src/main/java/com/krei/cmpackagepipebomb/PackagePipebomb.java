@@ -2,8 +2,12 @@ package com.krei.cmpackagepipebomb;
 
 import com.simibubi.create.AllCreativeModeTabs;
 import com.simibubi.create.foundation.data.CreateRegistrate;
+import com.simibubi.create.foundation.item.ItemDescription;
+import com.simibubi.create.foundation.item.KineticStats;
+import com.simibubi.create.foundation.item.TooltipModifier;
 import com.tterrag.registrate.util.entry.EntityEntry;
 import com.tterrag.registrate.util.entry.ItemEntry;
+import net.createmod.catnip.lang.FontHelper;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.MobCategory;
@@ -25,6 +29,11 @@ public class PackagePipebomb {
     public static final CreateRegistrate REGISTRATE = CreateRegistrate
             .create(MODID)
             .defaultCreativeTab(AllCreativeModeTabs.BASE_CREATIVE_TAB.getKey());
+
+    static {
+        REGISTRATE.setTooltipModifierFactory(item -> new ItemDescription.Modifier(item, FontHelper.Palette.STANDARD_CREATE)
+                .andThen(TooltipModifier.mapNull(KineticStats.create(item))));
+    }
 
     public static final ItemEntry<PipebombItem> PIPEBOMB_ITEM = REGISTRATE
             .item("pipebomb", PipebombItem::new)
