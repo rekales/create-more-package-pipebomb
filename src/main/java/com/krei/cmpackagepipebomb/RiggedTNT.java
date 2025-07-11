@@ -13,7 +13,7 @@ public class RiggedTNT extends Item implements PackageSpawn{
     @Override
     public Entity getSpawnedEntity(Level level, double x, double y, double z) {
         PrimedTnt primedtnt = new PrimedTnt(level, x, y, z, null);
-        primedtnt.setFuse(20);
+        primedtnt.setFuse(15);
         return primedtnt;
     }
 }

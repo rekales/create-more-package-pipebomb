@@ -12,7 +12,7 @@ public class RiggedPipebomb extends Item implements PackageSpawn {
     @Override
     public Entity getSpawnedEntity(Level level, double x, double y, double z) {
         PrimedPipebomb primedPipebomb = new PrimedPipebomb(level, x, y, z, null);
-        primedPipebomb.setFuse(20);
+        primedPipebomb.setFuse(15);
         return primedPipebomb;
     }
 

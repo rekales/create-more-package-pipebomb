@@ -68,11 +68,12 @@ public class PackagePipebomb {
     }
 
     public static void clientInit(final FMLClientSetupEvent event) {
-//        PonderIndex.addPlugin(new PonderScenes());
         // Somethings wrong with registrate that makes me want to commit seppuku
         EntityRenderers.register(
                 PIPEBOMB_ENTITY.get(),
                 PipebombRenderer::new
         );
     }
+
+    // TODO: Custom death message
 }

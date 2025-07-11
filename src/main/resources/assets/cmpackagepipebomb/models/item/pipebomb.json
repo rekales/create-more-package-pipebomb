@@ -1,3 +1,6 @@
 {
-  "parent": "create:item/andesite_alloy"
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "create:item/andesite_alloy"
+  }
 }

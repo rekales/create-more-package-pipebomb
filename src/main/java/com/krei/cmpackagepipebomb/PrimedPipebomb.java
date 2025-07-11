@@ -49,7 +49,7 @@ public class PrimedPipebomb extends PrimedTnt implements ItemSupplier {
                         this.getX(),
                         this.getY(0.0625),
                         this.getZ(),
-                        2.5F,
+                        3F,
                         false,
                         Level.ExplosionInteraction.TNT
                 );

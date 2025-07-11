@@ -9,7 +9,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public class PipebombItem extends Item{
+public class PipebombItem extends Item {
     public PipebombItem(Properties properties) {
         super(properties);
     }
@@ -29,7 +29,7 @@ public class PipebombItem extends Item{
                 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F)
         );
         if (!level.isClientSide) {
-            PrimedPipebomb pipebomb = new PrimedPipebomb(level, player.getX(), player.getY(), player.getZ(), player);
+            PrimedPipebomb pipebomb = new PrimedPipebomb(level, player.getX(), player.getEyeY(), player.getZ(), player);
             pipebomb.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);
             level.addFreshEntity(pipebomb);
         }
