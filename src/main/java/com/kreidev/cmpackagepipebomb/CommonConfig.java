@@ -1,4 +1,4 @@
-package com.kreidev.cmbase;
+package com.kreidev.cmpackagepipebomb;
 
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;

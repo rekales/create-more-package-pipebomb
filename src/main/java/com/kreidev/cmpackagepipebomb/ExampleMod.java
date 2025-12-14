@@ -1,4 +1,4 @@
-package com.kreidev.cmbase;
+package com.kreidev.cmpackagepipebomb;
 
 import com.simibubi.create.AllCreativeModeTabs;
 import com.simibubi.create.foundation.data.CreateRegistrate;
@@ -16,7 +16,7 @@ import net.neoforged.fml.common.Mod;
 
 @Mod(ExampleMod.MOD_ID)
 public class ExampleMod {
-    public static final String MOD_ID = "cmbase";
+    public static final String MOD_ID = "cmpackagepipebomb";
 
     @SuppressWarnings("unused")
     public static final Logger LOGGER = LogUtils.getLogger();
