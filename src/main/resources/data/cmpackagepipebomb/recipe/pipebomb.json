@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "P": {
+      "item": "minecraft:gunpowder"
+    },
+    "S": {
+      "item": "create:andesite_alloy"
+    }
+  },
+  "pattern": [
+    " SP",
+    "SPS",
+    "PS "
+  ],
+  "result": {
+    "count": 1,
+    "id": "cmpackagepipebomb:pipebomb"
+  }
+}

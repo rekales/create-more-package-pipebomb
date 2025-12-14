@@ -1,0 +1,11 @@
+{
+  "item.cmpackagepipebomb.pipebomb": "Самодельная бомба",
+  "item.cmpackagepipebomb.pipebomb_rigged": "Активированная самодельная бомба",
+  "item.cmpackagepipebomb.tnt_rigged": "Активированный динамит",
+  "item.cmpackagepipebomb.pipebomb_rigged.tooltip.summary": "_Обращаться с максимальной осторожностью._",
+  "item.cmpackagepipebomb.pipebomb_rigged.tooltip.condition1": "При распаковывании коробки с предметом",
+  "item.cmpackagepipebomb.pipebomb_rigged.tooltip.behaviour1": "_Детонирует_ прямо в руках адресата.",
+  "item.cmpackagepipebomb.tnt_rigged.tooltip.summary": "_Обращаться с максимальной осторожностью._",
+  "item.cmpackagepipebomb.tnt_rigged.tooltip.condition1": "При распаковывании коробки с предметом",
+  "item.cmpackagepipebomb.tnt_rigged.tooltip.behaviour1": "_Детонирует_ прямо в руках адресата."
+}
