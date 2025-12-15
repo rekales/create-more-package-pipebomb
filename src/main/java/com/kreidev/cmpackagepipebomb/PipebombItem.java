@@ -34,7 +34,7 @@ public class PipebombItem extends Item {
             level.addFreshEntity(pipebomb);
         }
 
-        itemstack.consume(1, player);
+        itemstack.shrink(1);
         return InteractionResultHolder.sidedSuccess(itemstack, level.isClientSide());
     }
 }

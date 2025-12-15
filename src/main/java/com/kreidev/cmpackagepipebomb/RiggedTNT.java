@@ -3,6 +3,7 @@ package com.kreidev.cmpackagepipebomb;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 public class RiggedTNT extends Item implements PackageSpawn{
@@ -15,5 +16,9 @@ public class RiggedTNT extends Item implements PackageSpawn{
         PrimedTnt primedtnt = new PrimedTnt(level, x, y, z, null);
         primedtnt.setFuse(15);
         return primedtnt;
+    }
+
+    public boolean isFoil(ItemStack stack) {
+        return true;
     }
 }

@@ -2,6 +2,7 @@ package com.kreidev.cmpackagepipebomb;
 
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 public class RiggedPipebomb extends Item implements PackageSpawn {
@@ -14,6 +15,10 @@ public class RiggedPipebomb extends Item implements PackageSpawn {
         PrimedPipebomb primedPipebomb = new PrimedPipebomb(level, x, y, z, null);
         primedPipebomb.setFuse(15);
         return primedPipebomb;
+    }
+
+    public boolean isFoil(ItemStack stack) {
+        return true;
     }
 
     // NOTE: maybe use a more generic PackageSpawnItem that uses a supplier?

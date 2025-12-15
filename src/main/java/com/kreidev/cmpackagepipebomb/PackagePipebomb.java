@@ -9,16 +9,16 @@ import com.tterrag.registrate.util.entry.EntityEntry;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import net.createmod.catnip.lang.FontHelper;
 import net.minecraft.client.renderer.entity.EntityRenderers;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.MobCategory;
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
 
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.common.Mod;
 
 @Mod(PackagePipebomb.MOD_ID)
 public class PackagePipebomb {
@@ -42,13 +42,11 @@ public class PackagePipebomb {
     public static final ItemEntry<RiggedPipebomb> RIGGED_PIPEBOMB_ITEM = REGISTRATE
             .item("pipebomb_rigged", RiggedPipebomb::new)
             .properties(p -> p.stacksTo(1))
-            .properties(p -> p.component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true))
             .register();
 
     public static final ItemEntry<RiggedTNT> RIGGED_TNT_ITEM = REGISTRATE
             .item("tnt_rigged", RiggedTNT::new)
             .properties(p -> p.stacksTo(1))
-            .properties(p -> p.component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true))
             .register();
 
     public static final EntityEntry<PrimedPipebomb> PIPEBOMB_ENTITY = REGISTRATE
@@ -56,13 +54,14 @@ public class PackagePipebomb {
             .properties(p -> p
                     .fireImmune()
                     .sized(0.5f, 0.5f)
-                    .eyeHeight(0.25f)
                     .clientTrackingRange(10)
                     .updateInterval(10))
 //        .renderer(() -> DeliveryPlaneRenderer::new)
             .register();
 
-    public PackagePipebomb(IEventBus modEventBus, ModContainer modContainer) {
+    public PackagePipebomb() {
+        @SuppressWarnings("removal")
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         REGISTRATE.registerEventListeners(modEventBus);
         modEventBus.addListener(PackagePipebomb::clientInit);
     }

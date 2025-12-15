@@ -44,13 +44,10 @@ public class PrimedPipebomb extends PrimedTnt implements ItemSupplier {
         this.level()
                 .explode(
                         this,
-                        Explosion.getDefaultDamageSource(this.level(), this),
-                        null,
                         this.getX(),
                         this.getY(0.0625),
                         this.getZ(),
                         3F,
-                        false,
                         Level.ExplosionInteraction.TNT
                 );
     }
@@ -83,7 +80,7 @@ public class PrimedPipebomb extends PrimedTnt implements ItemSupplier {
         float f1 = -Mth.sin((x + z) * (float) (Math.PI / 180.0));
         float f2 = Mth.cos(y * (float) (Math.PI / 180.0)) * Mth.cos(x * (float) (Math.PI / 180.0));
         this.shoot((double)f, (double)f1, (double)f2, velocity, inaccuracy);
-        Vec3 vec3 = shooter.getKnownMovement();
+        Vec3 vec3 = shooter.getDeltaMovement();
         this.setDeltaMovement(this.getDeltaMovement().add(vec3.x, shooter.onGround() ? 0.0 : vec3.y, vec3.z));
     }
 }
