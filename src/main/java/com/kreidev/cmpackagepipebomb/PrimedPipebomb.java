@@ -23,7 +23,7 @@ public class PrimedPipebomb extends PrimedTnt implements ItemSupplier {
         this.setPos(x, y, z);
         double d0 = level.random.nextDouble() * (float) (Math.PI * 2);
         this.setDeltaMovement(-Math.sin(d0) * 0.02, 0.2F, -Math.cos(d0) * 0.02);
-        this.setFuse(80);
+        this.setFuse(60);
         this.xo = x;
         this.yo = y;
         this.zo = z;

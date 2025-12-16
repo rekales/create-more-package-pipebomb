@@ -1,0 +1,6 @@
+{
+  "parent": "cmpackagepipebomb:item/pipebomb",
+  "textures": {
+    "3": "cmpackagepipebomb:item/pipebomb_white"
+  }
+}

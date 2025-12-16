@@ -10,6 +10,7 @@ import com.tterrag.registrate.util.entry.ItemEntry;
 import net.createmod.catnip.lang.FontHelper;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.MobCategory;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import org.slf4j.Logger;
@@ -68,6 +69,7 @@ public class PackagePipebomb {
     }
 
     public static void clientInit(final FMLClientSetupEvent event) {
+        PipebombRenderer.init();
         // Somethings wrong with registrate that makes me want to commit seppuku
         EntityRenderers.register(
                 PIPEBOMB_ENTITY.get(),
@@ -75,5 +77,7 @@ public class PackagePipebomb {
         );
     }
 
-    // TODO: Custom death message
+    public static ResourceLocation resLoc(String path) {
+        return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
+    }
 }
