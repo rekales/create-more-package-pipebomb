@@ -9,7 +9,7 @@
   "item.cmpackagepipebomb.pipebomb_rigged.tooltip.condition1": "When Opened From a Package",
   "item.cmpackagepipebomb.pipebomb_rigged.tooltip.behaviour1": "Spawns a short fuse Pipebomb",
   "item.cmpackagepipebomb.pipebomb_rigged.tooltip.condition2": "When Used on a Postbox",
-  "item.cmpackagepipebomb.pipebomb_rigged.tooltip.behaviour2": "Traps a postbox",
+  "item.cmpackagepipebomb.pipebomb_rigged.tooltip.behaviour2": "Traps the postbox",
   "item.cmpackagepipebomb.pipebomb_rigged.trapped": "Bomb has been planted",
   "item.cmpackagepipebomb.tnt_rigged.tooltip.summary": "_Handle with care._",
   "item.cmpackagepipebomb.tnt_rigged.tooltip.condition1": "When Opened From a Package",

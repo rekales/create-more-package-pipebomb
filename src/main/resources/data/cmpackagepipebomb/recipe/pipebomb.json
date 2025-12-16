@@ -1,18 +1,16 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "minecraft:crafting_shapeless",
   "category": "misc",
-  "key": {
-    "P": {
+  "ingredients": [
+    {
+      "item": "create:fluid_pipe"
+    },
+    {
       "item": "minecraft:gunpowder"
     },
-    "S": {
-      "item": "create:andesite_alloy"
+    {
+      "item": "minecraft:gunpowder"
     }
-  },
-  "pattern": [
-    " SP",
-    "SPS",
-    "PS "
   ],
   "result": {
     "count": 1,
