@@ -10,7 +10,10 @@ import com.tterrag.registrate.util.entry.EntityEntry;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import net.createmod.catnip.lang.FontHelper;
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -34,7 +37,8 @@ public class PackagePipebomb {
 
     public static final CreateRegistrate REGISTRATE = CreateRegistrate
             .create(MOD_ID)
-            .defaultCreativeTab(AllCreativeModeTabs.BASE_CREATIVE_TAB.getKey());
+            .defaultCreativeTab(AllCreativeModeTabs.BASE_CREATIVE_TAB.getKey() != null ?
+                    AllCreativeModeTabs.BASE_CREATIVE_TAB.getKey() : CreativeModeTabs.REDSTONE_BLOCKS);
 
     static {
         REGISTRATE.setTooltipModifierFactory(item -> new ItemDescription.Modifier(item, FontHelper.Palette.STANDARD_CREATE)
@@ -87,16 +91,16 @@ public class PackagePipebomb {
         if (level.getBlockEntity(event.getPos()) instanceof PostboxBlockEntity postbox) {
             boolean spawnedBombs = false;
             for (int i=0; i<postbox.inventory.getSlots(); i++) {
-                if (postbox.inventory.getItem(i).is(RIGGED_PIPEBOMB_ITEM)) {
-                    Vec3 loc = event.getPos().above().getCenter();
-                    RIGGED_PIPEBOMB_ITEM.get().spawnEntity(level, loc.x(), loc.y(), loc.z());
+                if (postbox.inventory.getItem(i).is(RIGGED_PIPEBOMB_ITEM.get())) {
+                    Vec3 loc = event.getPos().getCenter();
+                    RIGGED_PIPEBOMB_ITEM.get().spawnEntity(level, loc.x(), loc.y()+0.5f, loc.z());
                     postbox.inventory.setStackInSlot(i, ItemStack.EMPTY);
                     spawnedBombs = true;
-                    LOGGER.info("spawn shit");
                 }
             }
 
             if (spawnedBombs) {
+                event.setCancellationResult(InteractionResult.CONSUME);
                 event.setCanceled(true);
             }
         }

@@ -1,6 +1,7 @@
 package com.kreidev.cmpackagepipebomb;
 
 import com.simibubi.create.content.logistics.packagePort.postbox.PostboxBlockEntity;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -33,7 +34,7 @@ public class RiggedPipebomb extends Item implements PackageSpawn {
                     postbox.inventory.setStackInSlot(i, stack.copy());
                     stack.shrink(1);
                     if (context.getPlayer() != null) {
-                        context.getPlayer().displayClientMessage(Component.translatable("item.cmpackagepipebomb.pipebomb_rigged.trapped").withColor(0xff2020), true);
+                        context.getPlayer().displayClientMessage(Component.translatable("item.cmpackagepipebomb.pipebomb_rigged.trapped").withStyle(style -> style.withColor(ChatFormatting.RED)), true);
                     }
                     return InteractionResult.CONSUME;
                 }

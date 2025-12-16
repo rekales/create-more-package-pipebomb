@@ -3,14 +3,13 @@
   "category": "misc",
   "ingredients": [
     {
-      "item": "minecraft:tnt"
+      "item": "cmpackagepipebomb:pipebomb"
     },
     {
       "tag": "minecraft:buttons"
     }
   ],
   "result": {
-    "count": 1,
-    "id": "cmpackagepipebomb:tnt_rigged"
+    "item": "cmpackagepipebomb:pipebomb_rigged"
   }
 }
