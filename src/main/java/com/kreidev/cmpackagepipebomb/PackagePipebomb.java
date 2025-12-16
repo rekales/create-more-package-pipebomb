@@ -67,6 +67,7 @@ public class PackagePipebomb {
     }
 
     public static void clientInit(final FMLClientSetupEvent event) {
+        PipebombRenderer.init();
         // Somethings wrong with registrate that makes me want to commit seppuku
         EntityRenderers.register(
                 PIPEBOMB_ENTITY.get(),
@@ -74,5 +75,7 @@ public class PackagePipebomb {
         );
     }
 
-    // TODO: Custom death message
+    public static ResourceLocation resLoc(String path) {
+        return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
+    }
 }
