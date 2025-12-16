@@ -91,11 +91,10 @@ public class PackagePipebomb {
             boolean spawnedBombs = false;
             for (int i=0; i<postbox.inventory.getSlots(); i++) {
                 if (postbox.inventory.getItem(i).is(RIGGED_PIPEBOMB_ITEM)) {
-                    Vec3 loc = event.getPos().above().getCenter();
-                    RIGGED_PIPEBOMB_ITEM.get().spawnEntity(level, loc.x(), loc.y(), loc.z());
+                    Vec3 loc = event.getPos().getCenter();
+                    RIGGED_PIPEBOMB_ITEM.get().spawnEntity(level, loc.x(), loc.y()+0.5f, loc.z());
                     postbox.inventory.setStackInSlot(i, ItemStack.EMPTY);
                     spawnedBombs = true;
-                    LOGGER.info("spawn shit");
                 }
             }
 
