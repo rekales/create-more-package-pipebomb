@@ -1,6 +1,7 @@
 package com.kreidev.cmpackagepipebomb.mixin;
 
 import com.kreidev.cmpackagepipebomb.PackageSpawn;
+import com.llamalad7.mixinextras.sugar.Local;
 import com.simibubi.create.content.logistics.box.PackageItem;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -17,19 +18,18 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.List;
 
+@SuppressWarnings("InvokeAssignCanReplacedWithExpression")
 @Mixin(value = PackageItem.class, remap = false)
 public abstract class PackageItemMixin {
 
     @Inject(
             method = "open",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;copy()Lnet/minecraft/world/item/ItemStack;"),
-            locals = LocalCapture.CAPTURE_FAILSOFT
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;copy()Lnet/minecraft/world/item/ItemStack;")
     )
-    private static void open(Level worldIn, Player playerIn, InteractionHand handIn, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir, ItemStack box, ItemStackHandler contents) {
+    private static void open(Level worldIn, Player playerIn, InteractionHand handIn, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir, @Local(name = "contents") ItemStackHandler contents) {
         if (contents == null)
             return;
 
@@ -55,10 +55,9 @@ public abstract class PackageItemMixin {
             at = @At(
                     value = "INVOKE_ASSIGN",
                     target = "Lcom/simibubi/create/content/logistics/box/PackageItem;getContents(Lnet/minecraft/world/item/ItemStack;)Lnet/neoforged/neoforge/items/ItemStackHandler;"
-            ),
-            locals = LocalCapture.CAPTURE_FAILSOFT
+            )
     )
-    private void appendHoverText(ItemStack stack, Item.TooltipContext tooltipContext, List<Component> tooltipComponents, TooltipFlag tooltipFlag, CallbackInfo ci, int visibleNames, int skippedNames, ItemStackHandler contents) {
+    private void appendHoverText(ItemStack stack, Item.TooltipContext tooltipContext, List<Component> tooltipComponents, TooltipFlag tooltipFlag, CallbackInfo ci, @Local(name = "contents") ItemStackHandler contents) {
         if (contents == null)
             return;
 

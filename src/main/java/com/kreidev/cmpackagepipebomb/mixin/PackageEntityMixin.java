@@ -1,6 +1,7 @@
 package com.kreidev.cmpackagepipebomb.mixin;
 
 import com.kreidev.cmpackagepipebomb.PackageSpawn;
+import com.llamalad7.mixinextras.sugar.Local;
 import com.simibubi.create.content.logistics.box.PackageEntity;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
@@ -11,8 +12,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
+@SuppressWarnings("InvokeAssignCanReplacedWithExpression")
 @Mixin(value = PackageEntity.class, remap = false)
 public class PackageEntityMixin {
 
@@ -21,10 +22,9 @@ public class PackageEntityMixin {
             at = @At(
                     value = "INVOKE_ASSIGN",
                     target = "Lcom/simibubi/create/content/logistics/box/PackageItem;getContents(Lnet/minecraft/world/item/ItemStack;)Lnet/neoforged/neoforge/items/ItemStackHandler;"
-            ),
-            locals = LocalCapture.CAPTURE_FAILSOFT
+            )
     )
-    private void dropAllDeathLoot(ServerLevel level, DamageSource pDamageSource, CallbackInfo ci, ItemStackHandler contents) {
+    private void dropAllDeathLoot(ServerLevel level, DamageSource pDamageSource, CallbackInfo ci, @Local(name = "contents") ItemStackHandler contents) {
         if (contents == null)
             return;
 

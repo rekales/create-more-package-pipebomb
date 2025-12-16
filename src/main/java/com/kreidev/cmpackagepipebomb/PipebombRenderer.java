@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.Blocks;
+import org.jetbrains.annotations.NotNull;
 
 import static com.kreidev.cmpackagepipebomb.PackagePipebomb.resLoc;
 
@@ -24,7 +25,7 @@ public class PipebombRenderer extends EntityRenderer<PrimedPipebomb> {
     }
 
     @Override
-    public void render(PrimedPipebomb entity, float entityYaw, float partialTicks, PoseStack ms, MultiBufferSource buffer, int packedLight) {
+    public void render(PrimedPipebomb entity, float entityYaw, float partialTicks, PoseStack ms, @NotNull MultiBufferSource buffer, int packedLight) {
         ms.pushPose();
 
         // Expand when about to explode
@@ -59,8 +60,9 @@ public class PipebombRenderer extends EntityRenderer<PrimedPipebomb> {
         super.render(entity, entityYaw, partialTicks, ms, buffer, packedLight);
     }
 
+    @SuppressWarnings("DataFlowIssue")
     @Override
-    public ResourceLocation getTextureLocation(PrimedPipebomb primedPipebomb) {
+    public @NotNull ResourceLocation getTextureLocation(@NotNull PrimedPipebomb primedPipebomb) {
         return null;
     }
 

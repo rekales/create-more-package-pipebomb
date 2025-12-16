@@ -27,6 +27,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 
+@SuppressWarnings("unused")
 @Mod(PackagePipebomb.MOD_ID)
 public class PackagePipebomb {
     public static final String MOD_ID = "cmpackagepipebomb";

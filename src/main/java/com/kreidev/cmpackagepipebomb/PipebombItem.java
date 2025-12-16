@@ -8,6 +8,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 public class PipebombItem extends Item {
     public PipebombItem(Properties properties) {
@@ -15,7 +16,7 @@ public class PipebombItem extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public @NotNull InteractionResultHolder<ItemStack> use(Level level, Player player, @NotNull InteractionHand hand) {
         player.getCooldowns().addCooldown(this, 30);
         ItemStack itemstack = player.getItemInHand(hand);
         level.playSound(

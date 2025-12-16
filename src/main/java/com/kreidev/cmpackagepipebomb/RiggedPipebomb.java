@@ -8,6 +8,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 public class RiggedPipebomb extends Item implements PackageSpawn {
     public RiggedPipebomb(Properties properties) {
@@ -22,7 +23,7 @@ public class RiggedPipebomb extends Item implements PackageSpawn {
     }
 
     @Override
-    public InteractionResult onItemUseFirst(ItemStack stack, UseOnContext context) {
+    public @NotNull InteractionResult onItemUseFirst(@NotNull ItemStack stack, UseOnContext context) {
         if (context.getLevel().getBlockEntity(context.getClickedPos()) instanceof PostboxBlockEntity postbox) {
             for (int i=0; i<postbox.inventory.getSlots(); i++) {
                 if (postbox.inventory.getItem(i).isEmpty()) {
