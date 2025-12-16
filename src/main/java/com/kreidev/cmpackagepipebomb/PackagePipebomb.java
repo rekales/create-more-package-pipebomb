@@ -1,6 +1,7 @@
 package com.kreidev.cmpackagepipebomb;
 
 import com.simibubi.create.AllCreativeModeTabs;
+import com.simibubi.create.content.logistics.packagePort.postbox.PostboxBlockEntity;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
@@ -10,6 +11,11 @@ import com.tterrag.registrate.util.entry.ItemEntry;
 import net.createmod.catnip.lang.FontHelper;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -64,6 +70,7 @@ public class PackagePipebomb {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         REGISTRATE.registerEventListeners(modEventBus);
         modEventBus.addListener(PackagePipebomb::clientInit);
+        MinecraftForge.EVENT_BUS.addListener(PackagePipebomb::onRightClickedBlock);
     }
 
     public static void clientInit(final FMLClientSetupEvent event) {
@@ -73,6 +80,26 @@ public class PackagePipebomb {
                 PIPEBOMB_ENTITY.get(),
                 PipebombRenderer::new
         );
+    }
+
+    public static void onRightClickedBlock(PlayerInteractEvent.RightClickBlock event) {
+        Level level = event.getLevel();
+        if (level.getBlockEntity(event.getPos()) instanceof PostboxBlockEntity postbox) {
+            boolean spawnedBombs = false;
+            for (int i=0; i<postbox.inventory.getSlots(); i++) {
+                if (postbox.inventory.getItem(i).is(RIGGED_PIPEBOMB_ITEM)) {
+                    Vec3 loc = event.getPos().above().getCenter();
+                    RIGGED_PIPEBOMB_ITEM.get().spawnEntity(level, loc.x(), loc.y(), loc.z());
+                    postbox.inventory.setStackInSlot(i, ItemStack.EMPTY);
+                    spawnedBombs = true;
+                    LOGGER.info("spawn shit");
+                }
+            }
+
+            if (spawnedBombs) {
+                event.setCanceled(true);
+            }
+        }
     }
 
     public static ResourceLocation resLoc(String path) {
