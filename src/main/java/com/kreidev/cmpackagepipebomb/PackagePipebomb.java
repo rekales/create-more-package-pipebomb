@@ -1,6 +1,7 @@
 package com.kreidev.cmpackagepipebomb;
 
 import com.simibubi.create.AllCreativeModeTabs;
+import com.simibubi.create.content.logistics.packagePort.postbox.PostboxBlockEntity;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
@@ -12,7 +13,12 @@ import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -66,6 +72,7 @@ public class PackagePipebomb {
     public PackagePipebomb(IEventBus modEventBus, ModContainer modContainer) {
         REGISTRATE.registerEventListeners(modEventBus);
         modEventBus.addListener(PackagePipebomb::clientInit);
+        NeoForge.EVENT_BUS.addListener(PackagePipebomb::onRightClickedBlock);
     }
 
     public static void clientInit(final FMLClientSetupEvent event) {
@@ -75,6 +82,26 @@ public class PackagePipebomb {
                 PIPEBOMB_ENTITY.get(),
                 PipebombRenderer::new
         );
+    }
+
+    public static void onRightClickedBlock(PlayerInteractEvent.RightClickBlock event) {
+        Level level = event.getLevel();
+        if (level.getBlockEntity(event.getPos()) instanceof PostboxBlockEntity postbox) {
+            boolean spawnedBombs = false;
+            for (int i=0; i<postbox.inventory.getSlots(); i++) {
+                if (postbox.inventory.getItem(i).is(RIGGED_PIPEBOMB_ITEM)) {
+                    Vec3 loc = event.getPos().above().getCenter();
+                    RIGGED_PIPEBOMB_ITEM.get().spawnEntity(level, loc.x(), loc.y(), loc.z());
+                    postbox.inventory.setStackInSlot(i, ItemStack.EMPTY);
+                    spawnedBombs = true;
+                    LOGGER.info("spawn shit");
+                }
+            }
+
+            if (spawnedBombs) {
+                event.setCanceled(true);
+            }
+        }
     }
 
     public static ResourceLocation resLoc(String path) {
