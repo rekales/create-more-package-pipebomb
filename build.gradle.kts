@@ -27,6 +27,7 @@ dependencies {
     runtimeOnly("dev.engine-room.flywheel:flywheel-neoforge-${property("minecraft_version")}:${property("flywheel_version")}")
     implementation("com.tterrag.registrate:Registrate:${property("registrate_version")}")
 
+    // Dev QOL
     runtimeOnly("curse.maven:jei-238222:7270455")
 }
 
@@ -54,11 +55,6 @@ neoForge {
         create("server") {
             server()
             programArgument("--nogui")
-            systemProperty("neoforge.enabledGameTestNamespaces", property("mod_id")!!.toString())
-        }
-
-        create("gameTestServer") {
-            type.set("gameTestServer")
             systemProperty("neoforge.enabledGameTestNamespaces", property("mod_id")!!.toString())
         }
     }
