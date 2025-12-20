@@ -12,6 +12,7 @@ import net.createmod.catnip.lang.FontHelper;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -92,13 +93,16 @@ public class PackagePipebomb {
             for (int i=0; i<postbox.inventory.getSlots(); i++) {
                 if (postbox.inventory.getItem(i).is(RIGGED_PIPEBOMB_ITEM)) {
                     Vec3 loc = event.getPos().getCenter();
-                    RIGGED_PIPEBOMB_ITEM.get().spawnEntity(level, loc.x(), loc.y()+0.5f, loc.z());
+                    Vec3 locAdd = new Vec3(event.getHitVec().getDirection().step()).scale(0.8);
+                    loc = loc.add(locAdd);
+                    RIGGED_PIPEBOMB_ITEM.get().spawnEntity(level, loc.x(), loc.y(), loc.z());
                     postbox.inventory.setStackInSlot(i, ItemStack.EMPTY);
                     spawnedBombs = true;
                 }
             }
 
             if (spawnedBombs) {
+                event.setCancellationResult(InteractionResult.SUCCESS);
                 event.setCanceled(true);
             }
         }
