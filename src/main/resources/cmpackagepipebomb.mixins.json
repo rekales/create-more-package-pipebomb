@@ -3,7 +3,7 @@
   "priority": 1000,
   "package": "com.kreidev.cmpackagepipebomb.mixin",
   "compatibilityLevel": "JAVA_17",
-  "refmap": "cmbase.refmap.json",
+  "refmap": "cmpackagepipebomb.refmap.json",
   "mixins": [
     "PackageItemMixin",
     "PackageEntityMixin"

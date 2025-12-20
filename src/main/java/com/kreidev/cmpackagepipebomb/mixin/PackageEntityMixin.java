@@ -1,6 +1,5 @@
 package com.kreidev.cmpackagepipebomb.mixin;
 
-import com.kreidev.cmpackagepipebomb.PackagePipebomb;
 import com.kreidev.cmpackagepipebomb.PackageSpawn;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.simibubi.create.content.logistics.box.PackageEntity;
@@ -13,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value = PackageEntity.class, remap = false)
+@Mixin(value = PackageEntity.class)
 public class PackageEntityMixin {
 
     @Inject(

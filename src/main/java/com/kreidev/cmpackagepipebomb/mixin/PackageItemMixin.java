@@ -1,6 +1,5 @@
 package com.kreidev.cmpackagepipebomb.mixin;
 
-import com.kreidev.cmpackagepipebomb.PackagePipebomb;
 import com.kreidev.cmpackagepipebomb.PackageSpawn;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.simibubi.create.content.logistics.box.PackageItem;
@@ -8,7 +7,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -19,11 +17,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.List;
 
-@Mixin(value = PackageItem.class, remap = false)
+@Mixin(value = PackageItem.class)
 public abstract class PackageItemMixin {
 
     @Inject(
