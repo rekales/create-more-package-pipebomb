@@ -9,3 +9,5 @@ for all the subproject repositories.
 - [Package Couriers](https://github.com/rekales//create-more-package-couriers)
 - Electric Pump (WIP)
 
+## Credits
+Crumpaloo - provided the old pipebomb texture
