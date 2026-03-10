@@ -8,19 +8,32 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.fml.ModList;
+import org.apache.maven.artifact.versioning.ArtifactVersion;
+import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
 
 import java.util.Optional;
 import java.util.function.Supplier;
 
+@SuppressWarnings("unused")
 public enum Mods {
-    CMPACKAGECOURIERS;
-
-    // from com/simibubi/create/compat/Mods.java
+    PACKAGE_COURIERS("cmpackagecouriers", "2.1.0");
 
     private final String id;
+    private final String minVersion;
 
     Mods() {
-        id = Lang.asId(name());
+        this.id = Lang.asId(name());
+        this.minVersion = "0.0.0";
+    }
+
+    Mods(String id) {
+        this.id = id;
+        this.minVersion = "0.0.0";
+    }
+
+    Mods(String id, String minVersion) {
+        this.id = id;
+        this.minVersion = minVersion;
     }
 
     public String id() {
@@ -43,16 +56,22 @@ public enum Mods {
         if (!isLoaded())
             return false;
         Item asItem = entry.asItem();
-        return asItem != null && RegisteredObjectsHelper.getKeyOrThrow(asItem)
+        return RegisteredObjectsHelper.getKeyOrThrow(asItem)
                 .getNamespace()
                 .equals(id);
     }
 
     /**
-     * @return a boolean of whether the mod is loaded or not based on mod id
+     * @return a boolean of whether the mod is loaded or not based on mod id and minimum version
      */
     public boolean isLoaded() {
-        return ModList.get().isLoaded(id);
+        return ModList.get().getModContainerById(id)
+                .map(container -> {
+                    ArtifactVersion current = container.getModInfo().getVersion();
+                    ArtifactVersion required = new DefaultArtifactVersion(minVersion);
+                    return current.compareTo(required) >= 0;
+                })
+                .orElse(false);
     }
 
     /**
@@ -75,47 +94,4 @@ public enum Mods {
             toExecute.get().run();
         }
     }
-
-    // /**
-    //  * Initialize all mod compatibility integrations
-    //  * Call this from the main mod constructor to set up all optional mod support
-    //  */
-    // public static void initializeCompatibility(IEventBus modEventBus, Logger logger) {
-    //     // Initialize Curios integration
-    //     CURIOS.executeIfInstalled(() -> () -> {
-    //         try {
-    //             Class.forName("com.krei.cmpackagecouriers.compat.curios.CuriosIntegration")
-    //                 .getMethod("initialize")
-    //                 .invoke(null);
-    //             logger.info("Curios integration initialized successfully");
-    //         } catch (Exception e) {
-    //             logger.warn("Failed to initialize Curios integration", e);
-    //         }
-    //     });
-
-    //     // Register data generation for Curios
-    //     modEventBus.addListener((GatherDataEvent event) -> {
-    //         CURIOS.executeIfInstalled(() -> () -> {
-    //             try {
-    //                 Class<?> dataGenClass = Class.forName("com.krei.cmpackagecouriers.compat.curios.CuriosDataGenerator");
-    //                 Object dataProvider = dataGenClass.getDeclaredConstructor(
-    //                     net.minecraft.data.PackOutput.class,
-    //                     java.util.concurrent.CompletableFuture.class,
-    //                     net.neoforged.neoforge.common.data.ExistingFileHelper.class
-    //                 ).newInstance(
-    //                     event.getGenerator().getPackOutput(),
-    //                     event.getLookupProvider(),
-    //                     event.getExistingFileHelper()
-    //                 );
-    //                 event.getGenerator().addProvider(event.includeServer(), (net.minecraft.data.DataProvider) dataProvider);
-    //                 logger.info("Curios data generation registered successfully");
-    //             } catch (Exception e) {
-    //                 logger.warn("Failed to register Curios data generation", e);
-    //             }
-    //         });
-    //     });
-
-    //     // Add other mod compatibility here in the future
-    //     // JEI.executeIfInstalled(() -> () -> { ... });
-    // }
 }
