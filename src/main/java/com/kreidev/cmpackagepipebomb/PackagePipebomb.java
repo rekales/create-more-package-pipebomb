@@ -77,7 +77,7 @@ public class PackagePipebomb {
         modEventBus.addListener(PackagePipebomb::clientInit);
         MinecraftForge.EVENT_BUS.addListener(PackagePipebomb::onRightClickedBlock);
 
-        Mods.CMPACKAGECOURIERS.executeIfInstalled(() -> () -> PackageCouriersCompat.init(modEventBus));
+        Mods.PACKAGE_COURIERS.executeIfInstalled(() -> () -> PackageCouriersCompat.init(modEventBus));
     }
 
     public static void clientInit(final FMLClientSetupEvent event) {
