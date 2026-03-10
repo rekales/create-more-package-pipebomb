@@ -1,5 +1,7 @@
 package com.kreidev.cmpackagepipebomb;
 
+import com.kreidev.cmpackagepipebomb.compat.Mods;
+import com.kreidev.cmpackagepipebomb.compat.cmpackagecouriers.PackageCouriersCompat;
 import com.simibubi.create.AllCreativeModeTabs;
 import com.simibubi.create.content.logistics.packagePort.postbox.PostboxBlockEntity;
 import com.simibubi.create.foundation.data.CreateRegistrate;
@@ -67,15 +69,15 @@ public class PackagePipebomb {
                     .sized(0.5f, 0.5f)
                     .clientTrackingRange(10)
                     .updateInterval(10))
-//        .renderer(() -> DeliveryPlaneRenderer::new)
             .register();
 
-    public PackagePipebomb() {
-        @SuppressWarnings("removal")
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+    public PackagePipebomb(FMLJavaModLoadingContext modLoadingContext) {
+        IEventBus modEventBus = modLoadingContext.getModEventBus();
         REGISTRATE.registerEventListeners(modEventBus);
         modEventBus.addListener(PackagePipebomb::clientInit);
         MinecraftForge.EVENT_BUS.addListener(PackagePipebomb::onRightClickedBlock);
+
+        Mods.CMPACKAGECOURIERS.executeIfInstalled(() -> () -> PackageCouriersCompat.init(modEventBus));
     }
 
     public static void clientInit(final FMLClientSetupEvent event) {
