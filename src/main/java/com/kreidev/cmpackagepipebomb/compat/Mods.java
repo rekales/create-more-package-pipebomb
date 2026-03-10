@@ -1,13 +1,13 @@
 package com.kreidev.cmpackagepipebomb.compat;
 
 import net.createmod.catnip.lang.Lang;
-import net.createmod.catnip.registry.RegisteredObjectsHelper;
+import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.fml.ModList;
+import net.minecraftforge.fml.ModList;
 import org.apache.maven.artifact.versioning.ArtifactVersion;
 import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
 
@@ -56,7 +56,7 @@ public enum Mods {
         if (!isLoaded())
             return false;
         Item asItem = entry.asItem();
-        return RegisteredObjectsHelper.getKeyOrThrow(asItem)
+        return CatnipServices.REGISTRIES.getKeyOrThrow(asItem)
                 .getNamespace()
                 .equals(id);
     }
