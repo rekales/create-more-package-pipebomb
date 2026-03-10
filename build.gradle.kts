@@ -27,6 +27,8 @@ dependencies {
     runtimeOnly("dev.engine-room.flywheel:flywheel-neoforge-${property("minecraft_version")}:${property("flywheel_version")}")
     implementation("com.tterrag.registrate:Registrate:${property("registrate_version")}")
 
+    implementation("maven.modrinth:create-more-package-couriers:2.1.0-neoforge")
+
     // Dev QOL
     runtimeOnly("curse.maven:jei-238222:7270455")
 }
@@ -49,6 +51,9 @@ neoForge {
 
         create("client") {
             client()
+            programArguments.addAll("--username", "John_Create")
+//            programArguments.addAll("--uuid", "dd71de23-cda9-4509-92e8-bc1e088dd093")
+
             systemProperty("neoforge.enabledGameTestNamespaces", property("mod_id")!!.toString())
         }
 
