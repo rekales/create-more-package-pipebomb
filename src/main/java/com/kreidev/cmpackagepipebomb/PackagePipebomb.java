@@ -1,5 +1,7 @@
 package com.kreidev.cmpackagepipebomb;
 
+import com.kreidev.cmpackagepipebomb.compat.Mods;
+import com.kreidev.cmpackagepipebomb.compat.cmpackagecouriers.PackageCouriersCompat;
 import com.simibubi.create.AllCreativeModeTabs;
 import com.simibubi.create.content.logistics.packagePort.postbox.PostboxBlockEntity;
 import com.simibubi.create.foundation.data.CreateRegistrate;
@@ -68,13 +70,14 @@ public class PackagePipebomb {
                     .eyeHeight(0.25f)
                     .clientTrackingRange(10)
                     .updateInterval(10))
-//        .renderer(() -> DeliveryPlaneRenderer::new)
             .register();
 
     public PackagePipebomb(IEventBus modEventBus, ModContainer modContainer) {
         REGISTRATE.registerEventListeners(modEventBus);
         modEventBus.addListener(PackagePipebomb::clientInit);
         NeoForge.EVENT_BUS.addListener(PackagePipebomb::onRightClickedBlock);
+
+        Mods.CMPACKAGECOURIERS.executeIfInstalled(() -> () -> PackageCouriersCompat.init(modEventBus));
     }
 
     public static void clientInit(final FMLClientSetupEvent event) {
