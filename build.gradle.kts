@@ -30,6 +30,8 @@ dependencies {
     implementation("io.github.llamalad7:mixinextras-forge:0.4.1")
     annotationProcessor("org.spongepowered:mixin:0.8.5:processor")
 
+    modImplementation("maven.modrinth:create-more-package-couriers:2.1.0-forge")
+
     // Dev QOL
     modRuntimeOnly("curse.maven:jei-238222:7270446")
 }
